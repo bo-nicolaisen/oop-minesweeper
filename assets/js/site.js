@@ -2,4 +2,4 @@
 import MineSweeper from './modules/minesweeper.js';
 
 
-const game = new MineSweeper('minesweeper',21);
+MineSweeper('minesweeper',10)
