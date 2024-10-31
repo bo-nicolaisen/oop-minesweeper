@@ -8,6 +8,7 @@ export default function  initializeGame(gameElement,tiles){
 
 //_____________________________________________________________________________________________________________________
 // game manager class is the main class for the game
+
 class GameManager {
   #badTileRate = 0.1;
   #bonusTileRate = 0.5;
@@ -62,8 +63,7 @@ class GameManager {
     this.updateScore();
 
     this.element.innerHTML = "";
-    // this.alertElement.innerHTML = "";
-
+    
     for (let index = 0; index < this.tileCount; index++) {
       if (Math.random() > this.#badTileRate) {
         new Tile(this.element, this);
@@ -83,7 +83,7 @@ class GameManager {
   dead() {
     this.lives--;
     this.updateScore();
-    //alert("You have " + this.lives + " lives left");
+   
     if (this.lives <= 0) {
       this.endGame(`<h1>Game Over</h1><h2> Your score is: ${this.score}</h2>`);
     }
