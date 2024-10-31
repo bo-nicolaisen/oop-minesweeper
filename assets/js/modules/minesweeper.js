@@ -10,8 +10,8 @@ export default class GameManager {
 
     this.score = 0;
     this.lives = 3;
-    this.tileCount =tiles;
-    this.debug = true;
+    this.tileCount =tiles*tiles;
+    this.debug = false;
     this.gameElement = document.getElementById(gameElement);
 
    
@@ -38,6 +38,13 @@ export default class GameManager {
     this.element.id = "board";
 
     this.gameElement.appendChild(this.element);
+
+  this.element.style.gridTemplateColumns = `repeat(${Math.floor(Math.sqrt(this.tileCount))},auto)`;
+
+   // this.element.setAttribute("style", `gridTemplateColumns:repeat(${Math.floor( this.tileCount*0.5)},auto);`);
+    //console.log(this.gameElement.style.gridTemplateColumns);
+    
+    
   }
 
 
@@ -81,7 +88,7 @@ export default class GameManager {
     this.setupBoard();
     this.startGame();
   }
-  
+
 }
 
 //_____________________________________________________________________________________________________________________

@@ -12,7 +12,7 @@ body{
     border: 1px solid white;
     padding: 10px;
     border-radius: 10px;
-    width: 60%;
+    width: 90%;
 }
 
 
@@ -20,7 +20,7 @@ body{
     width: 90%;
     display: grid;
     grid-template-columns: repeat(10,auto);
-    grid-template-rows: repeat(10, auto); 
+    
     gap: 1px; 
 }
 
@@ -34,10 +34,8 @@ body{
 
 .tileBack{
     background-color: rgb(63, 63, 63);
-  /*   width: 20px;
-    height: 20px; */
     aspect-ratio: 1/1;
-    border-radius: 50%;
+    border-radius: 10%;
 }
 
 .tileGood{
