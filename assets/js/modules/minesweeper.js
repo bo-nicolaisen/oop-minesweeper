@@ -41,8 +41,14 @@ export default class GameManager {
 
   this.element.style.gridTemplateColumns = `repeat(${Math.floor(Math.sqrt(this.tileCount))},auto)`;
 
-   // this.element.setAttribute("style", `gridTemplateColumns:repeat(${Math.floor( this.tileCount*0.5)},auto);`);
-    //console.log(this.gameElement.style.gridTemplateColumns);
+  // alert element
+  this.alertElement = document.createElement("div");
+  this.alertElement.classList.add("alertDown");
+
+this.gameElement.appendChild(this.alertElement);
+
+
+  
     
     
   }
@@ -52,6 +58,9 @@ export default class GameManager {
     this.score = 0;
     this.lives = 3;
     this.updateScore();
+
+    this.element.innerHTML = "";
+   // this.alertElement.innerHTML = "";
 
     for (let index = 0; index < this.tileCount; index++) {
       if (Math.random() > this.#badTileRate) {
@@ -73,7 +82,7 @@ export default class GameManager {
     this.updateScore();
     //alert("You have " + this.lives + " lives left");
     if (this.lives <= 0) {
-      this.endGame();
+      this.endGame(`<h1>Game Over</h1><h2> Your score is: ${this.score}</h2>`);
     }
   }
 
@@ -82,12 +91,21 @@ export default class GameManager {
     this.LivesElement.innerText = `Lives: ${this.lives}`;
   }
 
-  endGame() {
+  endGame(msg) {
     
-    this.gameInfo.innerHTML = `<h1>Game Over</h1><h2>Your score is: ${this.score}</h2>`;
-    this.setupBoard();
-    this.startGame();
-  }
+    this.alertElement.innerHTML = msg;
+    this.alertElement.classList.toggle("alertUp");
+
+   setTimeout(() => {
+    this.resetGame();
+   }, 3000);
+
+}
+
+resetGame(){
+  this.alertElement.classList.toggle("alertUp");
+  this.startGame();
+}
 
 }
 
@@ -104,7 +122,7 @@ class Tile {
 
     this.element = document.createElement("div");
     this.element.classList.add("tileBack");
-this.loadAudio();
+
 
     if (this.GameManager.debug) {
       this.element.classList.add("tileGood");
@@ -114,16 +132,14 @@ this.loadAudio();
     this.element.addEventListener("click", this.tileClick);
   }
 
-  loadAudio() {
-    this.soundClip = new Audio("assets/audio/goodClick.mp3");
-  }
+ 
 
   tileClick() {
     this.element.removeEventListener("click", this.tileClick);
 
     this.element.classList.remove("tileBack");
     this.element.classList.add("tileGood");
-    this.soundClip.play();
+   
     this.GameManager.score++;
     this.GameManager.updateScore();
   }
@@ -140,16 +156,14 @@ class badTile extends Tile {
     }
   }
 
-  loadAudio() {
-    this.soundClip = new Audio("assets/audio/badClick.mp3");
-  }
+
 
   // polymorphism   denne class overwrites tileClick
   tileClick() {
     this.element.removeEventListener("click", this.tileClick);
     this.element.classList.remove("tileBack");
     this.element.classList.add("tileBad");
-    this.soundClip.play();
+   
 
     this.GameManager.dead();
   }
@@ -166,9 +180,7 @@ class BonusTile extends Tile {
     }
   }
 
-  loadAudio() {
-    this.soundClip = new Audio("assets/audio/bonusClick.mp3");
-  }
+ 
 
 
   // polymorphism   denne class overwrites tileClick
@@ -176,7 +188,7 @@ class BonusTile extends Tile {
     this.element.removeEventListener("click", this.tileClick);
     this.element.classList.remove("tileBack");
     this.element.classList.add("tileBonus");
-    this.soundClip.play();
+  
 
     this.GameManager.score = this.GameManager.score + 10;
     this.GameManager.updateScore();

@@ -13,6 +13,7 @@ body{
     padding: 10px;
     border-radius: 10px;
     width: 90%;
+    overflow: hidden;
 }
 
 
@@ -29,6 +30,32 @@ body{
     display: flex;
     justify-content: space-between;
     margin: 10px;
+}
+
+.alertDown {
+    width: 90%;
+    height: 0%;
+    position: absolute;
+
+    top: 100%;
+    left: 0px;
+
+    background-color: rgba(255, 255, 255, 0.418);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: 1000ms;
+   overflow: hidden;
+}
+
+.alertUp {
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    backdrop-filter: blur(10px);
 }
 
 
